@@ -117,7 +117,12 @@ if(countResult.length) {
   const queryResult = await Deliveries.aggregate(queryWithLimit).allowDiskUse(true);
   return { totalResults: countResult.length , deliveries: queryResult}
 } else {
-  return { totalResults: 0 , deliveries: []}
+  throw {
+    code: 404,
+    data: {
+      message: `We couldn't find a delivery for the provided filters`
+    }
+  }
 }
 
 }
